@@ -1,4 +1,4 @@
-package matchATS_Backend.matchATS_Backend;
+package com.darsh.MatchATS_Backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package matchATS_Backend.matchATS_Backend;
+package com.darsh.MatchATS_Backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
