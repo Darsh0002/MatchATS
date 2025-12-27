@@ -13,13 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/resumes")
 @CrossOrigin("*")
 public class ResumeController {
+
     @Autowired
     private ResumeService resumeService;
 
-    @PostMapping("/analyze-resume")
+    @PostMapping("/analyze")
     public ResponseEntity<String> analyzeResume(@RequestParam("file") MultipartFile file,
                                                 @RequestParam(value = "jd", required = false, defaultValue = "General software engineering role") String jd) {
         Tika tika = new Tika();
@@ -35,7 +36,7 @@ public class ResumeController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/find")
+    @PostMapping("/match")
     public ResponseEntity<String> findMatch(@RequestParam("files") List<MultipartFile> resumes,
                                             @RequestParam(value = "jd", required = false, defaultValue = "General software engineering role") String jd) {
 
