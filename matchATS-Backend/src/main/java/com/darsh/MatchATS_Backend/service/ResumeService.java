@@ -74,6 +74,7 @@ public class ResumeService {
                   {
                     "id": (unique index starting from 1),
                     "name": "Full Name",
+                    "email": "Candidate Email" (null if not available)
                     "score": (integer),
                     "skills": ["Skill1", "Skill2"],
                     "status": "Match Status",
