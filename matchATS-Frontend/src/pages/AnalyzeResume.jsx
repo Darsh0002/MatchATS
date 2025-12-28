@@ -126,7 +126,7 @@ const AnalyzeResume = () => {
                 <button
                   onClick={handleAnalyze}
                   disabled={isAnalyzing || !files.length}
-                  className="group w-full flex items-center justify-center gap-3 py-6 rounded-[2rem] font-black text-white transition-all bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-200 shadow-xl shadow-indigo-100 active:scale-95"
+                  className="group w-full flex items-center justify-center gap-3 py-6 rounded-4xl font-black text-white transition-all bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-200 shadow-xl shadow-indigo-100 active:scale-95"
                 >
                   {isAnalyzing ? <RefreshCw className="animate-spin" /> : <Sparkles className="group-hover:rotate-12 transition-transform" />}
                   {isAnalyzing ? "Processing Matrix..." : "Analyze Alignment"}
@@ -140,7 +140,7 @@ const AnalyzeResume = () => {
                   <h2 className="text-2xl font-black tracking-tight">Job Description</h2>
                 </div>
                 <textarea
-                  className="w-full flex-1 min-h-[300px] p-8 bg-slate-50 border-2 border-slate-100 rounded-[2rem] focus:ring-8 focus:ring-indigo-500/5 focus:border-indigo-500 outline-none resize-none font-medium text-slate-700 leading-relaxed transition-all"
+                  className="w-full flex-1 min-h-75 p-8 bg-slate-50 border-2 border-slate-100 rounded-4xl focus:ring-8 focus:ring-indigo-500/5 focus:border-indigo-500 outline-none resize-none font-medium text-slate-700 leading-relaxed transition-all"
                   placeholder="Paste the job requirements here..."
                   value={jobDesc}
                   onChange={(e) => setJobDesc(e.target.value)}
@@ -194,7 +194,7 @@ const AnalyzeResume = () => {
 
               {/* SUMMARY */}
               <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-linear-to-r from-indigo-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <Sparkles className="absolute right-10 top-10 w-20 h-20 text-indigo-500 opacity-20 group-hover:rotate-12 transition-transform duration-700" />
                 <h3 className="text-indigo-400 font-black uppercase text-xs tracking-[0.3em] mb-6">Strategic Recommendation</h3>
                 <p className="text-3xl font-bold leading-tight relative z-10">{result.recommendation}</p>

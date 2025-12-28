@@ -4,6 +4,7 @@ import {
   Code2,
   Mail,
   X,
+  Loader2,
   Send,
   Sparkles,
   Briefcase,
@@ -13,11 +14,13 @@ import {
   Eye,
 } from "lucide-react";
 import toast from "react-hot-toast";
+import { sendEmail } from "../services/backendService";
 
 const ShowResult = ({ data = [] }) => {
   const [openDetails, setDetailsOpen] = useState(false);
   const [candidate, setCandidate] = useState(null);
   const [message, setMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   const closeModal = () => {
     setDetailsOpen(false);
@@ -48,18 +51,30 @@ const ShowResult = ({ data = [] }) => {
     }
   };
 
-  const sendEmail = () => {
-
+  const handleSendEmail = async () => {
     if (!message.trim()) {
-      toast.error("Message cannot be empty ");
+      toast.error("Message cannot be empty");
       return;
     }
 
-    console.log("Email Sent:", {
-      to: candidate?.email,
-      content: message,
-    });
-    closeModal();
+    setIsSending(true); // START LOADING
+
+    try {
+      const payload = {
+        msg: message,
+        email: candidate.email,
+      };
+
+      await sendEmail(payload);
+
+      toast.success("Email Sent Successfully");
+      closeModal();
+    } catch (err) {
+      toast.error("Failed to send email, Try Again Later");
+      console.error(err);
+    } finally {
+      setIsSending(false); // STOP LOADING
+    }
   };
 
   return (
@@ -239,7 +254,7 @@ const ShowResult = ({ data = [] }) => {
           {/* Main Modal Card */}
           <div className="relative bg-white rounded-[3rem] w-full max-w-6xl max-h-[92vh] shadow-[0_32px_64px_-15px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col md:flex-row animate-in fade-in zoom-in slide-in-from-bottom-8 duration-500">
             {/* Left Side: Candidate Profile Details (Sidebar) */}
-            <div className="w-full md:w-[40%] border-r border-slate-100 overflow-y-auto bg-gradient-to-b from-slate-50/80 to-white p-8 md:p-12">
+            <div className="w-full md:w-[40%] border-r border-slate-100 overflow-y-auto bg-linear-to-b from-slate-50/80 to-white p-8 md:p-12">
               <div className="flex flex-col items-center md:items-start text-center md:text-left gap-6 mb-10">
                 <div className="w-24 h-24 rounded-[2.5rem] bg-indigo-600 text-white flex items-center justify-center text-4xl font-black shadow-2xl shadow-indigo-200 ring-8 ring-white">
                   {(candidate?.NAME || candidate?.name)?.[0]}
@@ -310,7 +325,6 @@ const ShowResult = ({ data = [] }) => {
                   <X className="w-6 h-6 text-slate-400 group-hover:rotate-90 transition-transform duration-300" />
                 </button>
               </div>
-              
 
               {/* Composer Body */}
               <div className="p-10 flex-1 overflow-y-auto space-y-6">
@@ -322,7 +336,7 @@ const ShowResult = ({ data = [] }) => {
                   <div className="grid grid-cols-2 gap-4">
                     <button
                       onClick={() => quickFill("selected")}
-                      className="flex flex-col items-start p-5 rounded-[2rem] border-2 border-slate-100 hover:border-emerald-500 hover:bg-emerald-50/50 transition-all group text-left"
+                      className="flex flex-col items-start p-5 rounded-4xl border-2 border-slate-100 hover:border-emerald-500 hover:bg-emerald-50/50 transition-all group text-left"
                     >
                       <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                         <div className="w-2 h-2 rounded-full bg-emerald-600" />
@@ -336,7 +350,7 @@ const ShowResult = ({ data = [] }) => {
                     </button>
                     <button
                       onClick={() => quickFill("rejected")}
-                      className="flex flex-col items-start p-5 rounded-[2rem] border-2 border-slate-100 hover:border-rose-500 hover:bg-rose-50/50 transition-all group text-left"
+                      className="flex flex-col items-start p-5 rounded-4xl border-2 border-slate-100 hover:border-rose-500 hover:bg-rose-50/50 transition-all group text-left"
                     >
                       <div className="w-8 h-8 rounded-xl bg-rose-100 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                         <div className="w-2 h-2 rounded-full bg-rose-600" />
@@ -366,7 +380,7 @@ const ShowResult = ({ data = [] }) => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Start drafting your professional message..."
-                    className="w-full border-2 border-slate-100 rounded-[2rem] p-6 text-sm font-medium focus:outline-none focus:border-indigo-500 focus:ring-8 focus:ring-indigo-500/5 transition-all resize-none shadow-sm bg-slate-50/50"
+                    className="w-full border-2 border-slate-100 rounded-4xl p-6 text-sm font-medium focus:outline-none focus:border-indigo-500 focus:ring-8 focus:ring-indigo-500/5 transition-all resize-none shadow-sm bg-slate-50/50"
                   />
                 </div>
               </div>
@@ -380,11 +394,21 @@ const ShowResult = ({ data = [] }) => {
                   Discard
                 </button>
                 <button
-                  onClick={sendEmail}
-                  className="group flex items-center gap-3 px-12 py-4 rounded-2xl bg-slate-900 text-white text-sm font-black shadow-xl shadow-slate-200 hover:bg-indigo-600 hover:shadow-indigo-200 transition-all active:scale-95"
+                  onClick={handleSendEmail}
+                  disabled={isSending || !message.trim()} // Disable if sending OR message is empty
+                  className={`group flex items-center gap-3 px-12 py-4 rounded-2xl text-sm font-black shadow-xl transition-all active:scale-95 
+    ${
+      isSending
+        ? "bg-slate-400 cursor-not-allowed shadow-none"
+        : "bg-slate-900 text-white shadow-slate-200 hover:bg-indigo-600 hover:shadow-indigo-200"
+    }`}
                 >
-                  <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  Send Proposal
+                  {isSending ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  )}
+                  {isSending ? "Sending..." : "Send Mail"}
                 </button>
               </div>
             </div>

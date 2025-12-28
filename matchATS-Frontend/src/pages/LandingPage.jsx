@@ -94,7 +94,7 @@ const LandingPage = () => {
             {/* CTA 1: For Individual Analysis */}
             <button
               onClick={() => navigate("/analyze")}
-              className="group px-8 py-5 rounded-[2rem] bg-indigo-600 text-white font-black text-lg shadow-2xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
+              className="group px-8 py-5 rounded-4xl bg-indigo-600 text-white font-black text-lg shadow-2xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
             >
               <UserCheck className="w-5 h-5" />
               Analyze Resume
@@ -104,7 +104,7 @@ const LandingPage = () => {
             {/* CTA 2: For Recruiter Dashboard */}
             <button
               onClick={() => navigate("/dashboard")}
-              className="group px-8 py-5 rounded-[2rem] bg-slate-900 text-white font-black text-lg shadow-2xl shadow-slate-200 hover:bg-slate-800 hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
+              className="group px-8 py-5 rounded-4xl bg-slate-900 text-white font-black text-lg shadow-2xl shadow-slate-200 hover:bg-slate-800 hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
             >
               <LayoutDashboard className="w-5 h-5 text-indigo-400" />
               Find Best Candidate
@@ -154,12 +154,12 @@ const LandingPage = () => {
           {/* Steps Grid */}
           <div className="relative grid md:grid-cols-4 gap-8">
             {/* Connecting Line (Desktop Only) */}
-            <div className="hidden md:block absolute top-[28%] left-0 w-full h-[2px] bg-slate-100 -z-0">
+            <div className="hidden md:block absolute top-[28%] left-0 w-full h-0.5 bg-slate-100 z-0">
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: "100%" }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
-                className="h-full bg-gradient-to-r from-indigo-500 to-violet-500"
+                className="h-full bg-linear-to-r from-indigo-500 to-violet-500"
               />
             </div>
 
@@ -198,19 +198,6 @@ const LandingPage = () => {
       {/* ================= DUAL USE CASES ================= */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-indigo-600 p-12 rounded-[3.5rem] text-white shadow-2xl relative overflow-hidden">
-            <h3 className="text-3xl font-black mb-4">Are you a Job Seeker?</h3>
-            <p className="text-indigo-100 mb-8 font-medium">
-              Verify your resume against any JD before you hit apply.
-            </p>
-            <button
-              onClick={() => navigate("/analyze")}
-              className="px-8 py-4 bg-white text-indigo-600 rounded-2xl font-black hover:scale-105 transition-all"
-            >
-              Improve Your Resume
-            </button>
-          </div>
-
           <div className="bg-slate-900 p-12 rounded-[3.5rem] text-white shadow-2xl">
             <h3 className="text-3xl font-black mb-4">Are you a Recruiter?</h3>
             <p className="text-slate-400 mb-8 font-medium">
@@ -221,6 +208,19 @@ const LandingPage = () => {
               className="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-black hover:scale-105 transition-all"
             >
               Find Best Fit
+            </button>
+          </div>
+
+          <div className="bg-indigo-600 p-12 rounded-[3.5rem] text-white shadow-2xl relative overflow-hidden">
+            <h3 className="text-3xl font-black mb-4">Are you a Job Seeker?</h3>
+            <p className="text-indigo-100 mb-8 font-medium">
+              Verify your resume against any JD before you hit apply.
+            </p>
+            <button
+              onClick={() => navigate("/analyze")}
+              className="px-8 py-4 bg-white text-indigo-600 rounded-2xl font-black hover:scale-105 transition-all"
+            >
+              Improve Your Resume
             </button>
           </div>
         </div>
@@ -298,7 +298,7 @@ const StepItem = ({ number, icon, title, desc, delay }) => (
     </div>
 
     {/* Icon Container */}
-    <div className="w-20 h-20 rounded-[2rem] bg-white border border-slate-100 shadow-xl shadow-slate-200/50 flex items-center justify-center text-indigo-600 mb-8 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500">
+    <div className="w-20 h-20 rounded-4xl bg-white border border-slate-100 shadow-xl shadow-slate-200/50 flex items-center justify-center text-indigo-600 mb-8 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500">
       {icon}
     </div>
 

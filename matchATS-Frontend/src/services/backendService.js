@@ -16,3 +16,12 @@ export const findBestMatch = (payload) => {
     
     return apiClient.post("/resumes/match", payload);
 };
+
+export const sendEmail = (payload) => {
+    // Note the { headers: { ... } } wrapper - this was missing!
+    return axios.post(`http://localhost:8080/send/mail`, payload, {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+};

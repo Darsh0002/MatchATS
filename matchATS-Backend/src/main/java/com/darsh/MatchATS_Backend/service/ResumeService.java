@@ -14,7 +14,6 @@ public class ResumeService {
         this.chatClient = builder.build();
     }
 
-
     public String analyzeResume(String resumeText, String jd) {
         String prompt = String.format("""
                 You are an expert ATS (Applicant Tracking System).
