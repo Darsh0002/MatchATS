@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/resumes")
+@RequestMapping("/resumes")
 @CrossOrigin("*")
 public class ResumeController {
 
