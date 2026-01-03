@@ -19,7 +19,7 @@ export const findBestMatch = (payload) => {
 
 export const sendEmail = (payload) => {
     // Note the { headers: { ... } } wrapper - this was missing!
-    return axios.post(`http://localhost:8080/send/mail`, payload, {
+    return axios.post(`${import.meta.env.VITE_API_BASE_URL}/send/mail`, payload, {
         headers: {
             "Content-Type": "application/json",
         }
